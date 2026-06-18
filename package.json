@@ -1,0 +1,12 @@
+{
+  "name": "argha-matrix-engine",
+  "version": "1.0.0",
+  "description": "Unified Analysis Engine Pipeline",
+  "main": "engine/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "author": "",
+  "license": "ISC"
+}

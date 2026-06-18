@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Argha Matrix</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body class="dark-theme">
+
+  <!-- TOP HEADER -->
+  <header id="top-header">
+    <div class="user-info">
+      <img id="user-avatar" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiM1NTViNmUiLz48L3N2Zz4=" alt="Avatar">
+      <span id="user-name">Argha Matrix</span>
+    </div>
+    <div class="header-actions">
+      <div class="credits-chip">💰 <span id="user-credits">200</span></div>
+      <button id="customMenuBtn" style="display: none;">⋯</button>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT AREA -->
+  <main id="main-content">
+    
+    <!-- SECTION 1: HOME -->
+    <section id="section-home" class="view-section active">
+      <div class="card profile-card">
+        <h2>Welcome to Argha Matrix</h2>
+        <p>Your algorithmic trading companion.</p>
+        <div class="stats-grid">
+          <div class="stat-box"><span>P/L</span><br><strong id="stat-pnl">$0.00</strong></div>
+          <div class="stat-box"><span>Win Rate</span><br><strong id="stat-winrate">0%</strong></div>
+        </div>
+      </div>
+      <div class="ad-banner" onclick="watchAd()">
+        🎁 Watch Ad for 5 Credits
+      </div>
+      <button class="primary-btn" onclick="navTo('analysis')">📊 New Analysis</button>
+      <button class="secondary-btn" onclick="navTo('topup')">💳 Top Up Credits</button>
+    </section>
+
+    <!-- SECTION 2: ANALYSIS -->
+    <section id="section-analysis" class="view-section">
+      <div class="search-container">
+        <input type="text" id="market-search" placeholder="Search markets (e.g. BTCUSDT, XAUUSD)...">
+        <div class="category-tabs">
+          <span class="tab active">All</span>
+          <span class="tab">Crypto</span>
+          <span class="tab">Forex</span>
+          <span class="tab">Metals</span>
+        </div>
+        <div id="search-results"></div>
+      </div>
+      
+      <div class="timeframe-selector">
+        <span>1m</span><span>5m</span><span>15m</span><span>1h</span><span class="active">4h</span><span>1D</span>
+      </div>
+
+      <div class="chart-container" id="tv_chart_widget">
+        <!-- TradingView Widget Placeholder -->
+        <div style="padding: 40px; text-align: center; color: #888; border: 1px dashed #444;">
+          TradingView Chart Loads Here
+        </div>
+      </div>
+
+      <button id="analyze-btn" class="primary-btn" onclick="triggerAnalysis()">🤖 ANALYZE NOW (50 Credits)</button>
+
+      <div id="analysis-output" class="output-panel hidden">
+        <div class="output-header">
+          <h3>🧠 ARGHA MATRIX ANALYSIS</h3>
+          <span id="output-meta">BTC/USDT • 4H • Data age: 0s</span>
+        </div>
+        <div class="output-score">
+          🤖 Confluence Score: <span id="out-score">--</span>%
+          <div class="progress-bar"><div class="fill" id="out-score-fill" style="width: 0%"></div></div>
+          Direction: <strong id="out-dir">--</strong> | HTF Bias: <span id="out-bias">--</span>
+        </div>
+        <div class="output-plan">
+          <div>🎯 Entry: <span id="out-entry">--</span></div>
+          <div>✅ TP1: <span id="out-tp1">--</span></div>
+          <div>🚀 TP2: <span id="out-tp2">--</span></div>
+          <div>🛑 SL: <span id="out-sl">--</span></div>
+          <div>⚖️ R:R: <span id="out-rr">--</span></div>
+        </div>
+        <div class="output-risk">
+          ⚖️ Risk: 1.0% suggested · Daily loss used 0%/5%
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: TOPUP -->
+    <section id="section-topup" class="view-section">
+      <h2>Top Up Credits</h2>
+      <div class="plan-card">
+        <h3>Premium Monthly</h3>
+        <p>Unlimited Analysis for $15</p>
+        <button>Buy via Binance Pay</button>
+      </div>
+      <div class="plan-card">
+        <h3>500 Credits</h3>
+        <p>$5.00</p>
+        <button>Buy via Binance Pay</button>
+      </div>
+    </section>
+
+    <!-- SECTION 4: HISTORY -->
+    <section id="section-history" class="view-section">
+      <h2>Trade History</h2>
+      <div class="card perf-card">
+        <h3>Overall Performance</h3>
+        <div class="stats-grid">
+          <div class="stat-box"><span>Win Rate</span><br><strong id="hist-winrate">--%</strong></div>
+          <div class="stat-box"><span>Profit Factor</span><br><strong id="hist-pf">--</strong></div>
+          <div class="stat-box"><span>Avg RR</span><br><strong id="hist-rr">--</strong></div>
+          <div class="stat-box"><span>Max DD</span><br><strong id="hist-dd">--</strong></div>
+        </div>
+      </div>
+      <div class="history-list">
+        <p style="text-align:center; color:#888;">No trades logged yet.</p>
+      </div>
+    </section>
+
+    <!-- OTHER SECTIONS (T&C, Socials, Support) -->
+    <section id="section-support" class="view-section">
+      <h2>Support</h2>
+      <form id="support-form" onsubmit="submitSupport(event)">
+        <input type="text" id="sup-name" placeholder="Name" required>
+        <input type="text" id="sup-subject" placeholder="Subject" required>
+        <textarea id="sup-desc" placeholder="Describe your issue..." required></textarea>
+        <button type="submit" class="primary-btn">Submit via Formspree</button>
+      </form>
+    </section>
+
+  </main>
+
+  <!-- BOTTOM NAVIGATION BAR -->
+  <nav id="bottom-nav">
+    <button class="nav-item active" onclick="navTo('home')">🏠 Home</button>
+    <button class="nav-item" onclick="navTo('analysis')">📊 Analysis</button>
+  </nav>
+
+  <!-- SCRIPTS -->
+  <script type="module" src="app.js"></script>
+</body>
+</html>
